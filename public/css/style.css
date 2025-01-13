@@ -23,6 +23,30 @@ body {
   color: #222222 !important;
 }
 
+.navbar-nav .nav-link {
+  position: relative;
+}
+
+.navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -3px; /* Position line right below the text */
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    #6a11cb,
+    /* Purple */ #2575fc,
+    /* Blue */ #00d4ff /* Teal */
+  );
+  transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
 /* footer */
 .f-info-links a {
   text-decoration: none;
