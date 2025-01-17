@@ -44,13 +44,23 @@ app.use(express.json());
 const sessionOptions = {
     secret: "mysupersecretcode",
     resave: false,
-    saveUnintialized: true,
+    saveUninitialized: true,
     cookie: {
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
     },
 };
+
+
+// app.get("/test-auth", (req, res) => {
+//     if (req.user) {
+//         res.send(`User is logged in: ${req.user.username}`);
+//     } else {
+//         res.send("No user is logged in");
+//     }
+// });
+
 
 app.get("/", (req, res) => {
     res.send("Hi! keyur thisside...");
@@ -83,6 +93,7 @@ app.use((req, res, next) => {
 //     let registeredUser = await User.register(fakeUser, "keyur1234");
 //     res.send(registeredUser);
 // });
+
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);

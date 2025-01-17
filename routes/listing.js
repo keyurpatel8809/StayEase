@@ -32,12 +32,13 @@ router.get("/new", isLoggedIn, (req, res) => {
 //Show Route
 router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id).populate("reviews").populate("owner");
     if (!listing) {
         req.flash("error", "Cannot find that listing!");
         res.redirect("/listings");
     }
-    res.render("listings/show.ejs", { listing });
+    console.log(listing);
+    res.render("listings/show.ejs", { listing, currUser: req.user });
 
 }));
 
@@ -60,6 +61,7 @@ router.post("/", isLoggedIn, validateListing2,  /* validateListing */ wrapAsync(
 
 
     const newListing = new Listing(newListingData);
+    newListing.owner = req.user._id;
     await newListing.save();
     req.flash("success", "New Listing created!")
     res.redirect("/listings");
@@ -80,15 +82,34 @@ router.get("/:id/edit", isLoggedIn, wrapAsync(async (req, res) => {
 //Update Route
 router.put("/:id", isLoggedIn, validateListing2, wrapAsync(async (req, res) => {
     let { id } = req.params;
+    let listing = await Listing.findById(id).populate('owner');
+    console.log('Listing:', listing);
+    console.log('Listing Owner:', listing?.owner);
+    console.log('Current User:', res.locals.currUser);
+    console.log(req.user);
+    console.log('Current User in Template:', res.locals.currUser);
+
+
+    if (!listing || !listing.owner) {
+        req.flash("error", "Listing not found or missing owner!");
+        return res.redirect('/listings');
+    }
+
+    if (!listing.owner._id.equals(res.locals.currUser._id)) {
+        req.flash("error", "You do not have permission to do that!");
+        return res.redirect(`/listings/${id}`);
+    }
+
+
     const updatedData = { ...req.body.listing };
 
     // If image is provided as a string, convert it to an object
     if (typeof updatedData.image === 'string') {
         updatedData.image = { url: updatedData.image, filename: 'listingimage' };
     }
+
     await Listing.findByIdAndUpdate(id, updatedData);
     req.flash("success", "Listing Updated!");
-
     res.redirect(`/listings/${id}`);
 }));
 

@@ -39,11 +39,10 @@ router.post("/login",
         failureFlash: true,
     }),
     async (req, res) => {
+        console.log("user logged in", req.user);
         req.flash("success", "welcome back to StayEase!");
-        if (res.locals.redirectUrl) {
-            res.redirect(res.locals.redirectUrl);
-        }
-        res.redirect("/listings");
+        let redirectUrl = req.session.redirectUrl || "/listings";
+        res.redirect(redirectUrl);
     }
 );
 
@@ -55,6 +54,12 @@ router.get("/logout", (req, res, next) => {
         req.flash("success", "Goodbye!");
         res.redirect("/listings");
     });
-})
+});
+
+
+router.get("/debug-user", (req, res) => {
+    res.send(`Current User: ${req.user ? JSON.stringify(req.user) : "No user logged in"}`);
+});
+
 
 module.exports = router;
