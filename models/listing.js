@@ -9,27 +9,29 @@ const listingSchema = new Schema({
     },
     description: String,
     image: {
-        type: {
-            filename: { type: String, default: "listingimage" },
-            url: {
-                type: String,
-                default: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bmF0dXJlfGVufDB8fDB8fHww"
-            },
-        },
-        default: {
-            filename: "listingimage",
-            url: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bmF0dXJlfGVufDB8fDB8fHww"
-        },
-        set: function (v) {
-            // If `v` is falsy (undefined, null, or empty string), return the default values
-            if (!v || !v.url) {
-                return {
-                    filename: "listingimage",
-                    url: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bmF0dXJlfGVufDB8fDB8fHww"
-                };
-            }
-            return v;
-        }
+        url: String,
+        filename: String,
+        // type: {
+        //     filename: { type: String, default: "listingimage" },
+        //     url: {
+        //         type: String,
+        //         default: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bmF0dXJlfGVufDB8fDB8fHww"
+        //     },
+        // },
+        // default: {
+        //     filename: "listingimage",
+        //     url: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bmF0dXJlfGVufDB8fDB8fHww"
+        // },
+        // set: function (v) {
+        //     // If `v` is falsy (undefined, null, or empty string), return the default values
+        //     if (!v || !v.url) {
+        //         return {
+        //             filename: "listingimage",
+        //             url: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bmF0dXJlfGVufDB8fDB8fHww"
+        //         };
+        //     }
+        //     return v;
+        // }
     },
 
     price: Number,
