@@ -12,21 +12,24 @@
             enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input name="listing[title]" placeholder="enter title"
-                    type="text" class="form-control" required />
-                <div class="valid-feedback">
-                    Title Looks good!
-                </div>
+                <input
+                    name="listing[title]"
+                    placeholder="enter title"
+                    type="text"
+                    class="form-control"
+                    required />
+                <div class="valid-feedback">Title Looks good!</div>
             </div>
-
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea name="listing[description]"
+                <textarea
+                    name="listing[description]"
                     placeholder="enter description"
-                    class="form-control" required></textarea>
-                <div class="invalid-feedback">
-                    Please enter a short description.
-                </div>
+                    class="form-control"
+                    required>
+                </textarea>
+                <div class="invalid-feedback">Please enter a short
+                    description.</div>
             </div>
 
             <!-- <div class="mb-3">
@@ -40,13 +43,11 @@
             </div> -->
 
             <div class="mb-3">
-                <label for="image" class="form-label">Upload Image </label>
-                <input name="listing[image][url]"
-                    type="file"
+                <label for="image" class="form-label">Upload Listing Image
+                </label>
+                <input name="listing[image][url]" type="file"
                     class="form-control" />
-                <div class="invalid-feedback">
-                    Please enter a valid Image
-                </div>
+                required
             </div>
 
             <div class="row">

@@ -1,5 +1,7 @@
 const Listing = require("../models/listing");
-
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapToken = process.env.MAP_TOKEN;
+const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 //Index function to render all the listings
 module.exports.index = async (req, res) => {
@@ -31,21 +33,33 @@ module.exports.showListing = async (req, res) => {
 };
 
 module.exports.createListing = async (req, res, next) => {
+
+    let response = await geocodingClient.forwardGeocode({
+        query: req.body.listing.location,
+        limit: 1,
+        countries: ['IN'], // Restrict to India
+    })
+        .send();
+
     let url = req.file.path;
     let filename = req.file.filename;
-    console.log(url, filename);
-    // const newListingData = { ...req.body.listing };
+    const newListingData = { ...req.body.listing };
 
     // Ensure image field is an object even if only URL is provided
-    if (typeof newListingData.image === 'string') {
-        newListingData.image = {
-            url: newListingData.image,
-            filename: "listingimage" // default filename
-        };
-    }
-    // const newListing = new Listing(newListingData);
-    // newListing.owner = req.user._id;
-    // await newListing.save();
+    // if (typeof newListingData.image === 'string') {
+    //     newListingData.image = {
+    //         url: newListingData.image,
+    //         filename: "listingimage" // default filename
+    //     };
+    // }
+    const newListing = new Listing(newListingData);
+    newListing.owner = req.user._id;
+    newListing.image = { url, filename };
+
+    newListing.geometry = response.body.features[0].geometry;
+
+    let savedListing = await newListing.save();
+    console.log(savedListing);
     req.flash("success", "New Listing created!")
     res.redirect("/listings");
 };
@@ -57,7 +71,10 @@ module.exports.rendereditForm = async (req, res) => {
         req.flash("error", "Cannot find that listing!");
         res.redirect("/listings");
     }
-    res.render("listings/edit.ejs", { listing });
+
+    let originalImageUrl = listing.image.url;
+    originalImageUrl = originalImageUrl.replace("/upload", "/upload/w_250,h_300");
+    res.render("listings/edit.ejs", { listing, originalImageUrl });
 };
 
 module.exports.updateListing = async (req, res) => {
@@ -69,7 +86,15 @@ module.exports.updateListing = async (req, res) => {
         updatedData.image = { url: updatedData.image, filename: 'listingimage' };
     }
 
-    await Listing.findByIdAndUpdate(id, updatedData);
+    let listing = await Listing.findByIdAndUpdate(id, updatedData);
+
+    if (typeof req.file !== "undefined") {
+        let url = req.file.path;
+        let filename = req.file.filename;
+        listing.image = { url, filename };
+        await listing.save();
+
+    }
     req.flash("success", "Listing Updated!");
     res.redirect(`/listings/${id}`);
 };

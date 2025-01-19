@@ -77,30 +77,12 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-//for debug
-// app.use((req, res, next) => {
-//     console.log("Session Data:", req.session);
-//     next();
-// });
-
-
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currentUser = req.user;
     next();
 });
-
-// app.get("/demouser", async (req, res) => {
-//     let fakeUser = new User({
-//         email: "keyur@gmail.com",
-//         username: "keyur",
-//     });
-
-//     let registeredUser = await User.register(fakeUser, "keyur1234");
-//     res.send(registeredUser);
-// });
-
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
@@ -117,11 +99,7 @@ app.use((err, req, res, next) => {
     const statusCode = 500 || err.statusCode;
     const errors = err.validationErrors || [err.message || "Something went  wrong! "];
     const message = err.message || "An error occured.";
-    // res.status(statusCode).send(message);
     res.status(statusCode).render("error.ejs", { message, errors });
-
-    // console.error("Error details:", err); // Log full error details
-    // res.status(500).send("Something went wrong");
 });
 
 app.listen(8080, () => {

@@ -19,6 +19,17 @@ body {
   font-size: 2rem;
 }
 
+/* .orgImg img {
+  width: 50%;
+  height: 30%;
+  object-fit: cover;
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+} */
+
 .nav-link {
   color: #222222 !important;
 }
@@ -146,4 +157,10 @@ body {
 .show-card {
   padding-left: 0;
   padding-right: 0;
+}
+
+/* map */
+#map {
+  height: 400px;
+  width: 80vh;
 }
