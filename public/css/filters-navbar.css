@@ -1,0 +1,76 @@
+/* Default Styling for Filters */
+#filters {
+  display: flex; /* Ensures horizontal alignment */
+  flex-wrap: nowrap; /* Prevents wrapping to a new line */
+  justify-content: flex-start; /* Aligns all items to the left */
+  gap: 1rem; /* Adds spacing between each item */
+  overflow-x: auto; /* Enables horizontal scrolling for overflow */
+  padding: 10px 0; /* Adjusts vertical spacing */
+}
+
+.filter {
+  margin-top: 1rem;
+  text-align: center; /* Centers text and icon within each filter */
+  opacity: 0.7;
+  transition: opacity 0.3s ease-in-out;
+  min-width: 80px; /* Ensures uniform spacing for all filters */
+}
+
+.filter:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.filter p {
+  font-size: 0.8rem; /* Adjust text size */
+  margin: 5px 0 0; /* Adds space between icon and text */
+}
+
+.text-info {
+  display: none; /* Hides the text info by default */
+}
+
+.tax-toggle {
+  margin-top: 1rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+  height: 3.25rem;
+  padding: 1rem;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.tax-toggle:hover {
+  cursor: pointer;
+
+  background-color: #00d1ff;
+}
+
+/* Responsive Design for Small Devices (max-width: 768px) */
+@media (max-width: 768px) {
+  #filters {
+    flex-wrap: wrap; /* Allows wrapping if necessary */
+    justify-content: center; /* Center-align for smaller screens */
+  }
+}
+
+/* Responsive Design for Extra Small Devices (max-width: 576px) */
+@media (max-width: 576px) {
+  #filters {
+    flex-direction: column; /* Stacks items vertically */
+    align-items: center; /* Centers items */
+  }
+
+  .filter {
+    min-width: auto; /* Removes the fixed width for better stacking */
+  }
+
+  .filter p {
+    font-size: 0.7rem; /* Adjust text size for small screens */
+  }
+}

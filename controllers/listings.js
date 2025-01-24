@@ -37,7 +37,7 @@ module.exports.createListing = async (req, res, next) => {
     let response = await geocodingClient.forwardGeocode({
         query: req.body.listing.location,
         limit: 1,
-        countries: ['IN'], // Restrict to India
+        // countries: ['IN', 'CANADA', 'US'], // Restrict to India
     })
         .send();
 
