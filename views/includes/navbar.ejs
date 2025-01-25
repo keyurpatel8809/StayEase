@@ -1,9 +1,18 @@
 <style>
+.navbar{
+  background: linear-gradient(135deg, #a8edea, #fed6e3);
+  color: #333; /* Darker text for readability */
+  padding: 20px 30px;
+  text-align: center;
+  border-bottom: 4px solid #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+}
   .search-btn {
-    background-color: #fe424d;
+    background-color: #B09AC8;
     color: #fff;
     border-radius: 25px;
-    padding: 0 1rem 0 1rem; 
+    padding: 0 1rem 0 1rem;
 
   }
   .search-btn:hover {
@@ -19,14 +28,21 @@
     border-radius: 25px;
     padding: 0.5rem 3rem 0.5rem 3rem;
     font-size: 1rem;
-}
+  }
+    .navbar-nav .nav-link {
+      font-size: 1.2rem;
+  }
+  .fa-solid {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+  }
 
 </style>
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="/listings"><i
-        class="fa-regular fa-compass"></i></a>
+        class="fa-solid fa-globe"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
       data-bs-target="#navbarNavAltMarkup">
       <span class="navbar-toggler-icon"></span>

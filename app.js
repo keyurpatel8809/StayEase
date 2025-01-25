@@ -51,16 +51,6 @@ const sessionOptions = {
     },
 };
 
-
-// app.get("/test-auth", (req, res) => {
-//     if (req.user) {
-//         res.send(`User is logged in: ${req.user.username}`);
-//     } else {
-//         res.send("No user is logged in");
-//     }
-// });
-
-
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -98,6 +88,6 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render("error.ejs", { message, errors });
 });
 
-app.listen(8080, () => {
-    console.log("server is listening to port 8080");
+app.listen(8181, () => {
+    console.log("server is listening to port 8181");
 });

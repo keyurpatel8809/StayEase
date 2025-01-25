@@ -7,6 +7,18 @@
   overflow-x: auto; /* Enables horizontal scrolling for overflow */
   padding: 10px 0; /* Adjusts vertical spacing */
 }
+.filter-category {
+  text-decoration: none;
+  color: inherit; /* Keep the original color */
+  display: inline-block; /* Ensure the link behaves properly */
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; /* Ensure the icon and text stack vertically */
+}
 
 .filter {
   margin-top: 1rem;

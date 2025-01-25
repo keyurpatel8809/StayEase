@@ -32,16 +32,6 @@
                     description.</div>
             </div>
 
-            <!-- <div class="mb-3">
-                <label for="image" class="form-label">Image Link</label>
-                <input name="listing[image][url]"
-                    placeholder="enter image URL/Link" type="text"
-                    class="form-control" />
-                <div class="invalid-feedback">
-                    Please enter a valid Image
-                </div>
-            </div> -->
-
             <div class="mb-3">
                 <label for="image" class="form-label">Upload Listing Image
                 </label>
@@ -77,6 +67,28 @@
                     class="form-control" required>
                 <div class="invalid-feedback">
                     Location should be valid
+                </div>
+
+                <div class="mb-3">
+                    <label style="margin-top: 1rem;" for="category"
+                        class="form-label">Category</label>
+                    <select
+                        name="listing[category]"
+                        id="category"
+                        class="form-select shadow-sm"
+                        required>
+                        <option value="Trending">Trending</option>
+                        <option value="Rooms">Rooms</option>
+                        <option value="Iconic Cities">Iconic Cities</option>
+                        <option value="Mountains">Mountains</option>
+                        <option value="Castles">Castles</option>
+                        <option value="Amazing Pools">Amazing Pools</option>
+                        <option value="Camping">Camping</option>
+                        <option value="Farms">Farms</option>
+                        <option value="Arctic">Arctic</option>
+                        <option value="Arctic">Domes</option>
+                        <option value="Arctic">Boats</option>
+                    </select>
                 </div>
 
                 <button class="btn btn-dark add-btn mt-3">Add</button>

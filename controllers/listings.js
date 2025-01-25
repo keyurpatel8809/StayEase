@@ -5,6 +5,12 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 //Index function to render all the listings
 module.exports.index = async (req, res) => {
+    const { category } = req.query;
+    if (category) {
+        const allListings = await Listing.find({ category });
+        res.render("listings/index.ejs", { allListings, category });
+        return;
+    }
     const allListings = await Listing.find({});
     res.render("listings/index.ejs", { allListings });
 };
@@ -45,13 +51,7 @@ module.exports.createListing = async (req, res, next) => {
     let filename = req.file.filename;
     const newListingData = { ...req.body.listing };
 
-    // Ensure image field is an object even if only URL is provided
-    // if (typeof newListingData.image === 'string') {
-    //     newListingData.image = {
-    //         url: newListingData.image,
-    //         filename: "listingimage" // default filename
-    //     };
-    // }
+    console.log(newListingData);
     const newListing = new Listing(newListingData);
     newListing.owner = req.user._id;
     newListing.image = { url, filename };
@@ -59,7 +59,7 @@ module.exports.createListing = async (req, res, next) => {
     newListing.geometry = response.body.features[0].geometry;
 
     let savedListing = await newListing.save();
-    console.log(savedListing);
+    // console.log(savedListing);
     req.flash("success", "New Listing created!")
     res.redirect("/listings");
 };
@@ -67,11 +67,23 @@ module.exports.createListing = async (req, res, next) => {
 module.exports.rendereditForm = async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
+
+    //handle misssing listing
     if (!listing) {
         req.flash("error", "Cannot find that listing!");
         res.redirect("/listings");
     }
 
+    //Update the listing with form data
+    const { category, location, price } = req.body;
+    listing.category = category || listing.category; // Update only if a new value is provided
+    listing.location = location || listing.location;
+    listing.price = price || listing.price;
+
+    // Save the updated listing to the database
+    await listing.save();
+
+    // Handle image transformation for display
     let originalImageUrl = listing.image.url;
     originalImageUrl = originalImageUrl.replace("/upload", "/upload/w_250,h_300");
     res.render("listings/edit.ejs", { listing, originalImageUrl });
